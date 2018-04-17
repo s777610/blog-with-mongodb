@@ -33,7 +33,7 @@ class User(object):
         user = User.get_by_email(email)  # check if user email exist in db, return User object
         if user is not None:
             # check the password
-            return user.password == password
+            return user.password == password  # if password matchs, return True
         return False
 
     @classmethod

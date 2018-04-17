@@ -13,11 +13,11 @@ app.secret_key = "Wilson"
 def home_template():
     return render_template('home.html')
 
-@app.route('/login')  # www.mysite.com/api/login
+@app.route('/login')
 def login_template():
     return render_template("login.html")
 
-@app.route('/register')  # www.mysite.com/api/register
+@app.route('/register')
 def register_template():
     return render_template("register.html")
 
