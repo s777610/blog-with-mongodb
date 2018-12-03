@@ -1,6 +1,6 @@
 import uuid
-from src.common.database import Database
-from src.models.post import Post
+from common.database import Database
+from models.post import Post
 import datetime
 
 class Blog(object):
@@ -23,8 +23,7 @@ class Blog(object):
         return Post.from_blog(self._id)
 
     def save_to_mongo(self):
-        Database.insert(collection="blogs",
-                        data=self.json())
+        Database.insert(collection="blogs", data=self.json())
 
     def json(self):
         return {
@@ -37,20 +36,14 @@ class Blog(object):
 
     @classmethod
     def from_mongo(cls, _id):  # blog id
-        blog_data = Database.find_one(collection="blogs",
-                                      query={"_id": _id})
+        blog_data = Database.find_one(collection="blogs", query={"_id": _id})
         """It is a general Python construct. 
         Double asterisks in front of a dictionary 
         treats the dictionary keys and values as 
         names and arguments for a method."""
         return cls(**blog_data)
-        # return cls(author=blog_data["author"], return an object in order to call method
-        #           title=blog_data["title"],   such as get the post for viewing
-        #           description=blog_data["description"],
-        #           _id=blog_data["_id"])
 
     @classmethod
     def find_by_author_id(cls, author_id):
-        blogs = Database.find(collection="blogs",
-                              query={"author_id": author_id})
+        blogs = Database.find(collection="blogs", query={"author_id": author_id})
         return [cls(**blog) for blog in blogs]

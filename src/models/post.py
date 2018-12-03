@@ -1,11 +1,9 @@
 import uuid
-from src.common.database import Database
+from common.database import Database
 import datetime
 
 
-
 class Post(object):
-
     def __init__(self, blog_id, title, content, author, created_date=datetime.datetime.utcnow(), _id=None):
         self.blog_id = blog_id
         self.title = title
@@ -15,8 +13,7 @@ class Post(object):
         self._id = uuid.uuid4().hex if _id is None else _id  # use id if we already have
 
     def save_to_mongo(self):
-        Database.insert(collection="posts",
-                        data=self.json())
+        Database.insert(collection="posts", data=self.json())
 
     def json(self):
         return {

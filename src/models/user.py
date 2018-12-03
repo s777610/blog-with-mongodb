@@ -1,10 +1,8 @@
 import uuid
-
 import datetime
 from flask import session
-
-from src.common.database import Database
-from src.models.blog import Blog
+from common.database import Database
+from models.blog import Blog
 
 
 class User(object):
@@ -27,7 +25,6 @@ class User(object):
         if data is not None:
             return cls(**data)
 
-    # check whether a user's email matches the password they sent us
     @staticmethod
     def login_valid(email, password):
         user = User.get_by_email(email)  # check if user email exist in db, return User object
@@ -46,8 +43,8 @@ class User(object):
             session["email"] = email  # user's cookie match this session
             return True
         else:
-            # user exists
             return False
+
     @staticmethod
     def login(user_email):
         # login_valid has already been called
@@ -70,11 +67,8 @@ class User(object):
 
     @staticmethod
     def new_post(blog_id, title, content, date=datetime.datetime.utcnow()):
-        # title, content, date
         blog = Blog.from_mongo(blog_id)
-        blog.new_post(title=title,
-                      content=content,
-                      date=date)
+        blog.new_post(title=title, content=content, date=date)
         
 
     def json(self):
